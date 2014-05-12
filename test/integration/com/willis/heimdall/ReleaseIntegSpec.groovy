@@ -55,4 +55,16 @@ class ReleaseIntegSpec extends Specification {
 		then: "expect an entry in the database with the same ID"
 			release.exists(foundRelease.id) == NULL
 	}
+	
+	void "test having an invalid releaseId"(){		
+		when: "A release is instanciated with an invalid release id"
+			def badId = new Release(releaseId: 'r1', releaseName: 'Release one', summary: 'Description here', type: 'Business Service', riskLevel: 'Low', location: 'Exeter')
+			
+		then: "the test should fail validation and have errors because size is too small"
+			badId.validate() == false
+			badId.hasErrors() == true
+			def errors = badId.errors
+			errors.getFieldError("releaseId").code == "size.toosmall"			
+		
+	}
 }

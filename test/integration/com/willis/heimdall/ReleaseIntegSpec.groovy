@@ -23,14 +23,14 @@ class ReleaseIntegSpec extends Specification {
 			release.save()
 		
 		expect: "to find an entry in the database with the same ID"
-			release.id != NULL
+			release.id != null
 			Release.get(release.id) == 'rel1'
     }
 	
 	void "test saving and editting a record"() {
 		given: "I save the release to the database"
 			release.save()
-			release.id != NULL
+			release.id != null
 			
 		when: "I edit the release name"
 			def foundRelease = Release.get(release.id)
@@ -45,7 +45,7 @@ class ReleaseIntegSpec extends Specification {
 	void "test saving and deleting a record"() {
 		given: "I save the release to the database"
 			release.save()
-			release.id != NULL
+			release.id != null
 			
 		when: "I delete the release"
 			def foundRelease = Release.get(release.id)
@@ -53,7 +53,7 @@ class ReleaseIntegSpec extends Specification {
 			
 		
 		then: "expect an entry in the database with the same ID"
-			release.exists(foundRelease.id) == NULL
+			release.exists(foundRelease.id) == null
 	}
 	
 	void "test having an invalid releaseId"(){		

@@ -19,11 +19,11 @@ class SystemIntegSpec extends Specification {
     def cleanup() {
     }
 
-    void "test saving a single record to the database"() {
-		given: "I save the system to the database"
+    void 'test saving a single record to the database'() {
+		given: 'I save the system to the database'
 			system.save(failOnError: true)
 		 
-		expect: "to find an entry in the database with the same system name"
+		expect: 'to find an entry in the database with the same system name'
 			system.id != null
 			System.get(system.id).name == 'My System'		
 			System.get(system.id).description == 'Describe my system'
@@ -31,48 +31,48 @@ class SystemIntegSpec extends Specification {
 			System.get(system.id).status == 'Active'
     }
 	
-	void "test saving and updating a record"() {
-		given: "I save the system to the database"
+	void 'test saving and updating a record'() {
+		given: 'I save the system to the database'
 			system.save(failOnError:true)
 			system.id != null
 			
-		when: "I edit the system name"
+		when: 'I edit the system name'
 			def foundSys = System.get(system.id)
 			foundSys.name = 'Changed name'
 			foundSys.save(failOnError:true)
 		
-		then: "expect an entry in the database with the same name"
+		then: 'expect an entry in the database with the same name'
 			System.get(system.id).name == 'Changed name'
 	}
 	
-	void "test saving and deleting a record"() {
-		given: "I save the system to the database"
+	void 'test saving and deleting a record'() {
+		given: 'I save the system to the database'
 			system.save(failOnError:true)
 			system.id != null
 			
-		when: "I delete the system"
+		when: 'I delete the system'
 			def foundSys = System.get(system.id)
 			foundSys.delete()
 		
-		then: "expect an entry in the database with the same ID"
+		then: 'expect an entry in the database with the same ID'
 			!system.exists(foundSys.id)
 	}
 	
-	void "test having an invalid releaseId"(){
-		when: "A system is created with an invalid name"
+	void 'test having an invalid releaseId'(){
+		when: 'A system is created with an invalid name'
 			def badSys = new System(name: '',
 							description: 'Describe my system',
 							vendor: 'Oracle',
 							status: 'Active')
 			
-		then: "the test should fail validation and have errors because cannot be blank"
+		then: 'the test should fail validation and have errors because cannot be blank'
 			badSys.validate() == false
 			badSys.hasErrors() == true
 			def errors = badSys.errors
-			errors.getFieldError("name").code == "nullable"
+			errors.getFieldError('name').code == 'nullable'
 	}
 	
-	void "test invalid save is corrected"(){
+	void 'test invalid save is corrected'(){
 		given:
 			def badSys = new System(name: '',
 							description: 'Describe my system',
@@ -83,7 +83,7 @@ class SystemIntegSpec extends Specification {
 			badSys.validate() == false
 			badSys.hasErrors() == true
 			badSys.save() == null
-			badSys.name = "My System"
+			badSys.name = 'My System'
 			
 		then:
 			badSys.validate() == true

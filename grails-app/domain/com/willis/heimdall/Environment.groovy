@@ -15,13 +15,13 @@ class Environment {
 	String status
 
     static constraints = {
-		name blank: false, unique: true
-		description maxSize: 250
-		system maxSize: 100
+		name(blank : false, unique : true)
+		description(maxSize : 250)
+		system(maxSize : 100)
 		integratedWith()
 		url()
-		phaseUsage inList: ['DEV', 'SIT', 'UAT', 'PSUP', 'PROD']
+		phaseUsage(inList : ['DEV', 'SIT', 'UAT', 'PSUP', 'PROD'])
 		vendor()
-		status inList: ['Under Build/Config', 'Decommissioned', 'Active']
+		status(inList : ['Under Build/Config', 'Decommissioned', 'Active'])
     }
 }

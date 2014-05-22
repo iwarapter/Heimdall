@@ -12,10 +12,10 @@ class User {
 	String status
 	
     static constraints = {
-		firstName blank: false, nullable: false
-		lastName blank: false, nullable: false
-		email email: true, blank: false
-		role inList: ['Admin', 'Manager', 'Requestor']	
-		status inList: ['Pending', 'Active']	
+		firstName(blank : false, nullable : false)
+		lastName(blank : false, nullable : false)
+		email(email : true, blank: false)
+		role(inList : ['Admin', 'Manager', 'Requestor'])	
+		status(inList : ['Pending', 'Active'])	
     }
 }

@@ -58,7 +58,11 @@ class UserIntegSpec extends Specification {
 	
 	void 'test having an invalid email'(){
 		when: 'A user is created with an invalid email'
-			def badEmail = new User(firstName: 'Sion', lastName: 'Williams', email: 'myemail.co.uk', role: 'Admin',	status: 'Active')
+			def badEmail = new User(firstName: 'Sion', 
+									lastName: 'Williams', 
+									email: 'myemail.co.uk', 
+									role: 'Admin',	
+									status: 'Active')
 			
 		then: 'the test should fail validation and have errors because format not correct'
 			badEmail.validate() == false
@@ -70,7 +74,11 @@ class UserIntegSpec extends Specification {
 	
 	void 'test invalid save is corrected'(){
 		given: 'A user is created with an invalid email'
-			def badEmail = new User(firstName: 'Sion', lastName: 'Williams', email: 'myemail.co.uk', role: 'Admin',	status: 'Active')
+			def badEmail = new User(firstName: 'Sion', 
+									lastName: 'Williams', 
+									email: 'myemail.co.uk', 
+									role: 'Admin',	
+									status: 'Active')
 			
 		when: 'we validate its should fail so we change the email'
 			badEmail.validate() == false

@@ -7,12 +7,14 @@ package com.willis.heimdall
 class Environment {
 	String name
 	String description
-	String system
-	String integratedWith
+	String system	
 	String url
 	String phaseUsage
 	String vendor
 	String status
+	
+	// Needs to be a hasMany Environments relationship
+	String integratedWith
 
     static constraints = {
 		name(blank : false, unique : true)

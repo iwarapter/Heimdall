@@ -74,7 +74,14 @@ class ReleaseIntegSpec extends Specification {
 	
 	void 'test having an invalid releaseId'(){		
 		when: 'A release is created with an invalid release id'
-			def badId = new Release(releaseId: 'r1', releaseName: 'Release one', summary: 'Description here', type: 'Major', riskLevel: 'Low', location: 'Exeter', releaseDate : dateForRelease, implementationDate : dateForImplementation)
+			def badId = new Release(releaseId: 'r1', 
+									releaseName: 'Release one', 
+									summary: 'Description here', 
+									type: 'Major', 
+									riskLevel: 'Low', 
+									location: 'Exeter', 
+									releaseDate : dateForRelease, 
+									implementationDate : dateForImplementation)
 			
 		then: 'the test should fail validation and have errors because size is too small'
 			badId.validate() == false
@@ -86,7 +93,14 @@ class ReleaseIntegSpec extends Specification {
 	
 	void 'test invalid save is corrected'(){
 		given:
-			def badId = new Release(releaseId: 'r1', releaseName: 'Release one', summary: 'Description here', type: 'Major', riskLevel: 'Low', location: 'Exeter', releaseDate : dateForRelease, implementationDate : dateForImplementation)
+			def badId = new Release(releaseId: 'r1', 
+									releaseName: 'Release one', 
+									summary: 'Description here', 
+									type: 'Major', 
+									riskLevel: 'Low', 
+									location: 'Exeter', 
+									releaseDate : dateForRelease, 
+									implementationDate : dateForImplementation)
 			
 		when:
 			badId.validate() == false

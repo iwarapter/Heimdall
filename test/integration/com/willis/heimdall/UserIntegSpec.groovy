@@ -24,9 +24,13 @@ class UserIntegSpec extends Specification {
 		given: 'I save the user to the database'
 			user.save(failOnError:true)
 	
-		expect: 'to find an entry in the database with the same first name'
+		expect: 'to find an entry in the database with the same properties'
 			user.id != null
 			user.get(user.id).firstName == 'Sion'
+			user.get(user.id).lastName == 'Williams'
+			user.get(user.id).email == 'my@email.co.uk'
+			user.get(user.id).role == 'Admin'
+			user.get(user.id).status == 'Active'
     }
 	
 	void 'test saving and updating a record'() {

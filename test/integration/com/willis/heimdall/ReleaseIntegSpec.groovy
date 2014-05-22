@@ -33,7 +33,7 @@ class ReleaseIntegSpec extends Specification {
 		given: 'I save the release to the database'
 			release.save(failOnError:true)
 		
-		expect: 'to find an entry in the database with the same releaseId'
+		expect: 'to find an entry in the database with the same properties'
 			release.id != null
 			Release.get(release.id).releaseId == 'rel1'
 			Release.get(release.id).releaseName == 'Release one'

@@ -25,7 +25,7 @@ class SystemIntegSpec extends Specification {
 		given: 'I save the system to the database'
 			system.save(failOnError: true)
 		 
-		expect: 'to find an entry in the database with the same system name'
+		expect: 'to find an entry in the database with the same system properties'
 			system.id != null
 			System.get(system.id).name == 'My System'		
 			System.get(system.id).description == 'Describe my system'

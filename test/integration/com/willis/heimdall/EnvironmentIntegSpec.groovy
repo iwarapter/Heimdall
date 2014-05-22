@@ -27,7 +27,7 @@ class EnvironmentIntegSpec extends Specification {
 		given: 'I save the environment to the database'
 			env.save(failOnError : true)
 	
-		expect: 'to find an entry in the database with the same releaseId'
+		expect: 'to find an entry in the database with the same properties'
 			env.id != null
 			Environment.get(env.id).name == 'webapp-sit'
 			Environment.get(env.id).description == 'This is an environment'

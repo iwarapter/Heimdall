@@ -14,6 +14,6 @@ class Release {
 
     static constraints = {
 		releaseId(size: 3..20, unique: true)
-		
+		summary maxSize: 250
     }
 }

@@ -10,8 +10,7 @@ import spock.lang.*
 class ReleaseIntegSpec extends Specification {
 	def release
 
-    def setup() {
-		
+    def setup() {		
 		release = new Release(releaseId: 'rel1', 
 								releaseName: 'Release one', 
 								summary: 'Description here', 
@@ -30,6 +29,11 @@ class ReleaseIntegSpec extends Specification {
 		expect: "to find an entry in the database with the same releaseId"
 			release.id != null
 			Release.get(release.id).releaseId == 'rel1'
+			Release.get(release.id).releaseName == 'Release one'
+			Release.get(release.id).summary == 'Description here'
+			Release.get(release.id).type == 'Business Service'
+			Release.get(release.id).riskLevel == 'Low'
+			Release.get(release.id).location == 'Exeter'
     }
 	
 	void "test saving and updating a record"() {

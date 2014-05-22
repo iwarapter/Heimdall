@@ -1,5 +1,9 @@
 package com.willis.heimdall
 
+/**
+ * Release model
+ * @author Sion Williams
+ */
 class Release {
 	String releaseId
 	String releaseName

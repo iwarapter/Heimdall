@@ -14,10 +14,6 @@ class System {
 	// Should be a 1:1 relationship
 	String organisationUnit
 	
-	// TODO : replace with User object
-	// Should be a 1:m relationship
-	String stakeholder
-	
 
     static constraints = {
 		name(blank : false, nullable : false)
@@ -25,6 +21,5 @@ class System {
 		vendor()
 		status(inList : ['Active', 'Inactive'])
 		organisationUnit()
-		stakeholder()
     }
 }

@@ -14,8 +14,7 @@ class SystemIntegSpec extends Specification {
 							description : 'Describe my system',
 							vendor : 'Oracle',
 							status : 'Active',
-							organisationUnit : 'My group',
-							stakeholder : 'Mr Stakeholder')
+							organisationUnit : 'My group')
     }
 
     def cleanup() {
@@ -32,7 +31,6 @@ class SystemIntegSpec extends Specification {
 			System.get(system.id).vendor == 'Oracle'
 			System.get(system.id).status == 'Active'
 			System.get(system.id).organisationUnit == 'My group'
-			System.get(system.id).stakeholder == 'Mr Stakeholder'
     }
 	
 	void 'test saving and updating a record'() {
@@ -68,8 +66,7 @@ class SystemIntegSpec extends Specification {
 							description: 'Describe my system',
 							vendor: 'Oracle',
 							status: 'Active',
-							organisationUnit : 'My group',
-							stakeholder : 'Mr Stakeholder')
+							organisationUnit : 'My group')
 			
 		then: 'the test should fail validation and have errors because cannot be blank'
 			badSys.validate() == false
@@ -84,8 +81,7 @@ class SystemIntegSpec extends Specification {
 							description: 'Describe my system',
 							vendor: 'Oracle',
 							status: 'Active',
-							organisationUnit : 'My group',
-							stakeholder : 'Mr Stakeholder')
+							organisationUnit : 'My group')
 			
 		when:
 			badSys.validate() == false

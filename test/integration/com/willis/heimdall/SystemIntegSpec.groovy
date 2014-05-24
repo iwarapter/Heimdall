@@ -119,4 +119,35 @@ class SystemIntegSpec extends Specification {
 			sys1.save()
 			User.list().size() == originalUserCount + 1		
 	}
+	
+	void 'test we can query for Users via finders or HQL'(){
+		when: 'Create and save a System'			
+			def sys1 = new System( name : 'My System1',
+									description : 'Describe my system',
+									vendor : 'IBM',
+									status : 'Active',
+									organisationUnit : 'My group' )
+								
+			def user1 = new User( firstName: 'Sion',
+									lastName: 'Williams',
+									email: 'my@email.co.uk',
+									role: 'Admin',
+									status: 'Active' )
+			def user2 = new User( firstName: 'John',
+									lastName: 'Smith',
+									email: 'john@smith.co.uk',
+									role: 'Requestor',
+									status: 'Active' )
+			
+			sys1.addToUsers( user1 )
+			sys1.addToUsers( user2 )
+			sys1.save()
+			
+		then: 'Dynamic finder'
+			User.findAllBySystem( sys1 ).size() == 2
+			
+		and: 'HQL'
+			User.executeQuery( "from User s where s.system = ?", [ sys1 ] ).size() == 2
+			
+	}
 }

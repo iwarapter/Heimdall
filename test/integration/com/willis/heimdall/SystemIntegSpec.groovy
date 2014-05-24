@@ -114,10 +114,9 @@ class SystemIntegSpec extends Specification {
 			sys1.addToUsers( user1 )
 			
 		then: 'References should be set up, and saving system should save user'
-			user1.stakeholderOf == sys1
+			user1.system == sys1
 			!user1.id
 			sys1.save()
-			User.list().size() == originalUserCount + 1
-		
+			User.list().size() == originalUserCount + 1		
 	}
 }

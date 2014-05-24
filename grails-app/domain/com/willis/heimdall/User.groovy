@@ -11,7 +11,8 @@ class User {
 	String role
 	String status
 	
-	System stakeholderOf
+	static belongsTo = [ system : System]
+	System system
 	
     static constraints = {
 		firstName( blank : false, nullable : false )
@@ -19,6 +20,8 @@ class User {
 		email( email : true, blank: false )
 		role( inList : ['Admin', 'Manager', 'Requestor'] )	
 		status( inList : ['Pending', 'Active'] )
-		stakeholderOf( blank : true, nullable: true )
+		system( blank : true, nullable: true )
     }
+	
+	
 }

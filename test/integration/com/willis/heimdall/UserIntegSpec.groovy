@@ -113,12 +113,43 @@ class UserIntegSpec extends Specification {
 		and: 'shouldnt validate, shouldnt have an id'
 			!user1.validate()
 			!user1.id
-			user1.stakeholderOf = sys1
+			user1.system = sys1
 			
 		expect: 'its user: should validate and save'
 			user1.validate()
 			user1.save()
 			user1.id
 			
+	}
+	
+	void 'test User BelongsTo System and should cascade deletes'(){
+		given: 'Create and save a System and User'
+			def originalUserCount = User.list().size()
+			
+			def sys1 = new System( name : 'My System1',
+								description : 'Describe my system',
+								vendor : 'IBM',
+								status : 'Active',
+								organisationUnit : 'My group' )
+								
+			def user1 = new User( firstName: 'Sion',
+						lastName: 'Williams',
+						email: 'my@email.co.uk',
+						role: 'Admin',
+						status: 'Active' )
+			
+			sys1.addToUsers( user1 )
+			
+		and: 'Saving a system should also save its users'
+			!sys1.id
+			!user1.id
+			sys1.save()
+			sys1.id
+			user1.id
+			
+		expect: 'Deleting an album should delete its songs'
+			sys1.delete()
+			User.list().size() == originalUserCount
+		
 	}
 }

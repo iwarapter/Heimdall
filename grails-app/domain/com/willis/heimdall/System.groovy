@@ -22,4 +22,6 @@ class System {
 		status(inList : ['Active', 'Inactive'])
 		organisationUnit()
     }
+	
+	static hasMany = [ users : User ]
 }

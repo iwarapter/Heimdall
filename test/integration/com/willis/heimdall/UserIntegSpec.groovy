@@ -97,7 +97,7 @@ class UserIntegSpec extends Specification {
 	}
 	
 	void 'test system should have a stakeholder'(){
-		given:
+		given: ' a new system and user'
 			def sys1 = new System( name : 'My System',
 							description : 'Describe my system',
 							vendor : 'Oracle',
@@ -110,12 +110,12 @@ class UserIntegSpec extends Specification {
 							role: 'Admin',
 							status: 'Active' )		
 		
-		and:
+		and: 'shouldnt validate, shouldnt have an id'
 			!user1.validate()
 			!user1.id
-			user1.stakeholder = sys1
+			user1.stakeholderOf = sys1
 			
-		expect:
+		expect: 'its user: should validate and save'
 			user1.validate()
 			user1.save()
 			user1.id

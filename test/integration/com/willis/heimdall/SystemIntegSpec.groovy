@@ -10,11 +10,11 @@ class SystemIntegSpec extends Specification {
 	def system
 
     def setup() {
-		system = new System(name : 'My System',
+		system = new System( name : 'My System',
 							description : 'Describe my system',
 							vendor : 'Oracle',
 							status : 'Active',
-							organisationUnit : 'My group')
+							organisationUnit : 'My group' )
     }
 
     def cleanup() {
@@ -25,7 +25,7 @@ class SystemIntegSpec extends Specification {
 			system.save(failOnError: true)
 		 
 		expect: 'to find an entry in the database with the same system properties'
-			system.id != null
+			system.id
 			System.get(system.id).name == 'My System'		
 			System.get(system.id).description == 'Describe my system'
 			System.get(system.id).vendor == 'Oracle'
@@ -36,7 +36,7 @@ class SystemIntegSpec extends Specification {
 	void 'test saving and updating a record'() {
 		given: 'I save the system to the database'
 			system.save(failOnError:true)
-			system.id != null
+			system.id
 			
 		when: 'I edit the system name'
 			def foundSys = System.get(system.id)
@@ -50,7 +50,7 @@ class SystemIntegSpec extends Specification {
 	void 'test saving and deleting a record'() {
 		given: 'I save the system to the database'
 			system.save(failOnError:true)
-			system.id != null
+			system.id
 			
 		when: 'I delete the system'
 			def foundSys = System.get(system.id)
@@ -62,36 +62,62 @@ class SystemIntegSpec extends Specification {
 	
 	void 'test having an invalid releaseId'(){
 		when: 'A system is created with an invalid name'
-			def badSys = new System(name: '',
+			def badSys = new System( name: '',
 							description: 'Describe my system',
 							vendor: 'Oracle',
 							status: 'Active',
-							organisationUnit : 'My group')
+							organisationUnit : 'My group' )
 			
 		then: 'the test should fail validation and have errors because cannot be blank'
-			badSys.validate() == false
-			badSys.hasErrors() == true
+			!badSys.validate()
+			badSys.hasErrors()
 			def errors = badSys.errors
 			errors.getFieldError('name').code == 'nullable'
 	}
 	
 	void 'test invalid save is corrected'(){
 		given:
-			def badSys = new System(name: '',
+			def badSys = new System( name: '',
 							description: 'Describe my system',
 							vendor: 'Oracle',
 							status: 'Active',
-							organisationUnit : 'My group')
+							organisationUnit : 'My group' )
 			
 		when:
-			badSys.validate() == false
-			badSys.hasErrors() == true
-			badSys.save() == null
+			!badSys.validate()
+			badSys.hasErrors()
+			!badSys.save()
 			badSys.name = 'My System'
 			
 		then:
-			badSys.validate() == true
-			badSys.hasErrors() == false
+			badSys.validate()
+			!badSys.hasErrors()
 			badSys.save()
+	}
+	
+	void 'test system has many stakeholders and cascade saves'(){
+		when: 'Create and save a system and create a user without an system: shoudnt be valid'
+			def originalUserCount = User.list().size()
+			
+			def sys1 = new System( name : 'My System1',
+								description : 'Describe my system',
+								vendor : 'IBM',
+								status : 'Active',
+								organisationUnit : 'My group' ).save()
+								
+			def user1 = new User( firstName: 'Sion',
+						lastName: 'Williams',
+						email: 'my@email.co.uk',
+						role: 'Admin',
+						status: 'Active' )
+			
+			sys1.addToUsers( user1 )
+			
+		then: 'References should be set up, and saving system should save user'
+			user1.stakeholderOf == sys1
+			!user1.id
+			sys1.save()
+			User.list().size() == originalUserCount + 1
+		
 	}
 }

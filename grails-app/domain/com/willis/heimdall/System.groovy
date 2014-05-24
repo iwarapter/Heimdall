@@ -16,11 +16,11 @@ class System {
 	
 
     static constraints = {
-		name(blank : false, nullable : false)
-		description(maxSize : 250)
+		name( blank : false, nullable : false )
+		description( maxSize : 250 )
 		vendor()
-		status(inList : ['Active', 'Inactive'])
-		organisationUnit()
+		status( inList : ['Active', 'Inactive'] )
+		organisationUnit( nullable : true )
     }
 	
 	static hasMany = [ users : User ]

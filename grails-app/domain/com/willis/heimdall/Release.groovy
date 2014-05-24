@@ -15,11 +15,13 @@ class Release {
 	Date implementationDate
 
     static constraints = {
-		releaseId(size : 3..20, unique : true)
-		summary(maxSize : 250)
-		type(inList : ['Major', 'Minor', 'Patch'])
-		riskLevel(inList : ['Low', 'Medium', 'High'])
-		releaseDate(min : new Date())
-		implementationDate(min : new Date())
+		releaseId( size : 3..20, unique : true )
+		releaseName()
+		summary( maxSize : 250 )
+		location( nullable : true )
+		type( inList : ['Major', 'Minor', 'Patch'] )
+		riskLevel( inList : ['Low', 'Medium', 'High'] )
+		releaseDate( min : new Date() )
+		implementationDate( min : new Date() )
     }
 }

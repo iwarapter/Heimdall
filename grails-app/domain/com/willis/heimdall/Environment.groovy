@@ -17,13 +17,13 @@ class Environment {
 	String integratedWith
 
     static constraints = {
-		name(blank : false, unique : true)
-		description(maxSize : 250)
-		system(maxSize : 100)
-		integratedWith()
-		url()
-		phaseUsage(inList : ['DEV', 'SIT', 'UAT', 'PSUP', 'PROD'])
-		vendor()
-		status(inList : ['Under Build/Config', 'Decommissioned', 'Active'])
+		name( blank : false, unique : true )
+		description( maxSize : 250 )
+		integratedWith( nullable : true )
+		system( maxSize : 100, nullable : true )		
+		url( nullable : true )
+		phaseUsage( inList : ['DEV', 'SIT', 'UAT', 'PSUP', 'PROD'] )
+		vendor( nullable : true )
+		status( inList : ['Under Build/Config', 'Decommissioned', 'Active'] )
     }
 }

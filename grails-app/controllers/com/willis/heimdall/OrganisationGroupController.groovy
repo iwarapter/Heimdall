@@ -1,6 +1,6 @@
 package com.willis.heimdall
 
-class OrganisationUnitController {
+class OrganisationGroupController {
 
 	def scaffold = true
 }

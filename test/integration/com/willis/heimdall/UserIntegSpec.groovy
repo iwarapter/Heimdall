@@ -149,7 +149,54 @@ class UserIntegSpec extends Specification {
 			
 		expect: 'Deleting an album should delete its songs'
 			sys1.delete()
-			User.list().size() == originalUserCount
+			User.list().size() == originalUserCount	
+	}
+	
+	void 'test organisation group should have a member'(){
+		given: ' a new group and user'
+			def org1 = new OrganisationGroup( name : 'My Group' ).save()
+							
+			def user1 = new User( firstName: 'Sion',
+							lastName: 'Williams',
+							email: 'my@email.co.uk',
+							role: 'Admin',
+							status: 'Active' )
 		
+		and: 'shouldnt validate, shouldnt have an id'
+			!user1.validate()
+			!user1.id
+			user1.orgUnit = org1
+			
+		expect: 'its user: should validate and save'
+			user1.validate()
+			user1.save()
+			user1.id
+			
+	}
+	
+	void 'test User BelongsTo group and should cascade deletes'(){
+		given: 'Create and save a group and User'
+			def originalUserCount = User.list().size()
+			
+			def org1 = new OrganisationGroup( name : 'My Group' )
+								
+			def user1 = new User( firstName: 'Sion',
+						lastName: 'Williams',
+						email: 'my@email.co.uk',
+						role: 'Admin',
+						status: 'Active' )
+			
+			org1.addToMembers( user1 )
+			
+		and: 'Saving a system should also save its users'
+			!org1.id
+			!user1.id
+			org1.save()
+			org1.id
+			user1.id
+			
+		expect: 'Deleting an album should delete its songs'
+			org1.delete()
+			User.list().size() == originalUserCount
 	}
 }

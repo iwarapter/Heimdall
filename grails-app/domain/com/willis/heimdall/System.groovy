@@ -10,8 +10,7 @@ class System {
 	String vendor
 	String status
 	
-	// TODO : replace with Group object
-	// Should be a 1:1 relationship
+	// TODO : replace with Group object. Should be a 1:1 relationship
 	String organisationUnit
 	
 

@@ -21,7 +21,5 @@ class User {
 		status( inList : ['Pending', 'Active'] )
 		system( blank : true, nullable: true )
 		orgUnit( blank : true, nullable: true )
-    }
-	
-	
+    }	
 }

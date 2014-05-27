@@ -13,7 +13,7 @@ class Environment {
 	String vendor
 	String status
 	
-	// Needs to be a hasMany Environments relationship
+	//  TODO : replace with Environment object. Needs to be a hasMany relationship
 	String integratedWith
 
     static constraints = {

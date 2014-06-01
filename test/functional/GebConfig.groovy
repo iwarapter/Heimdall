@@ -21,15 +21,8 @@ private void downloadDriver(File file, String path) {
 
 environments {
 
-    // run as “grails -Dgeb.env=chrome test-app”
+    // run as “grails -Dgeb.env=chrome_linux32 test-app”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
-    chrome_mac {
-        def chromeDriver = new File('test/drivers/chrome/chromedriver')
-        downloadDriver(chromeDriver, "http://chromedriver.googlecode.com/files/chromedriver_mac_23.0.1240.0.zip")
-        System.setProperty('webdriver.chrome.driver', chromeDriver.absolutePath)
-        driver = { new ChromeDriver() }
-    }
-	
 	chrome_linux32 {
 		def chromeDriver = new File('test/drivers/chrome/chromedriver')
 		downloadDriver(chromeDriver, "https://chromedriver.storage.googleapis.com/2.10/chromedriver_linux32.zip")
@@ -37,6 +30,7 @@ environments {
 		driver = { new ChromeDriver() }
 	}
 	
+	// run as “grails -Dgeb.env=chrome_linux64 test-app”
 	chrome_linux64 {
 		def chromeDriver = new File('test/drivers/chrome/chromedriver')
 		downloadDriver(chromeDriver, "https://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip")
@@ -44,9 +38,18 @@ environments {
 		driver = { new ChromeDriver() }
 	}
 	
+	// run as “grails -Dgeb.env=chrome_mac32 test-app”
+	chrome_mac32 {
+		def chromeDriver = new File('test/drivers/chrome/chromedriver')
+		downloadDriver(chromeDriver, "https://chromedriver.storage.googleapis.com/2.10/chromedriver_mac32.zip")
+		System.setProperty('webdriver.chrome.driver', chromeDriver.absolutePath)
+		driver = { new ChromeDriver() }
+	}	
+	
+	// run as “grails -Dgeb.env=chrome_win32 test-app”
 	chrome_win32 {
 		def chromeDriver = new File('test/drivers/chrome/chromedriver')
-		downloadDriver(chromeDriver, "http://chromedriver.googlecode.com/files/chromedriver_mac_23.0.1240.0.zip")
+		downloadDriver(chromeDriver, "https://chromedriver.storage.googleapis.com/2.10/chromedriver_win32.zip")
 		System.setProperty('webdriver.chrome.driver', chromeDriver.absolutePath)
 		driver = { new ChromeDriver() }
 	}

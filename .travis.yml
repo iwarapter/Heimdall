@@ -6,7 +6,7 @@ jdk:
   - openjdk6
 
 script: ./grailsw refresh-dependencies
-     && ./grailsw -Dgeb.env=chrome_linux64 test-app
+     && ./grailsw test-app integration
 
 before_install:
  - chmod +x grailsw

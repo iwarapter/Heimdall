@@ -13,13 +13,12 @@ class Environment {
 	String vendor
 	String status
 	
-	//  TODO : replace with Environment object. Needs to be a hasMany relationship
-	String integratedWith
+	static hasMany = [ integrations : Environment ]
 
     static constraints = {
 		name( blank : false, unique : true )
 		description( maxSize : 250 )
-		integratedWith( nullable : true )
+		integrations( nullable : true )
 		system( maxSize : 100, nullable : true )		
 		url( nullable : true )
 		phaseUsage( inList : ['DEV', 'SIT', 'UAT', 'PSUP', 'PROD'] )

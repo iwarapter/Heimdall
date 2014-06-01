@@ -13,6 +13,8 @@ class System {
 	// TODO : replace with Group object. Should be a 1:1 relationship
 	String organisationUnit
 	
+	static hasMany = [ users : User ]
+	
 
     static constraints = {
 		name( blank : false, nullable : false )
@@ -21,6 +23,4 @@ class System {
 		status( inList : ['Active', 'Inactive'] )
 		organisationUnit( nullable : true )
     }
-	
-	static hasMany = [ users : User ]
 }

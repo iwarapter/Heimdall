@@ -13,7 +13,6 @@ class EnvironmentIntegSpec extends Specification {
 		env = new Environment(name : 'webapp-sit',
 								description : 'This is an environment',
 								system : 'Some System',
-								integratedWith : 'a different environment',
 								url : 'http://localhost:7001',
 								phaseUsage : 'SIT',
 								vendor : 'myCompany',
@@ -32,7 +31,6 @@ class EnvironmentIntegSpec extends Specification {
 			Environment.get(env.id).name == 'webapp-sit'
 			Environment.get(env.id).description == 'This is an environment'
 			Environment.get(env.id).system == 'Some System'
-			Environment.get(env.id).integratedWith == 'a different environment'
 			Environment.get(env.id).url == 'http://localhost:7001'
 			Environment.get(env.id).phaseUsage == 'SIT'
 			Environment.get(env.id).vendor == 'myCompany'

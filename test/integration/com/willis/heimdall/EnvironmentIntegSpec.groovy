@@ -7,10 +7,10 @@ import spock.lang.*
  * @author Sion Williams
  */
 class EnvironmentIntegSpec extends Specification {
-	def env 
+	def env1, env2, env3
 
     def setup() {
-		env = new Environment(name : 'webapp-sit',
+		env1 = new Environment(name : 'webapp-sit',
 								description : 'This is an environment',
 								system : 'Some System',
 								url : 'http://localhost:7001',
@@ -24,56 +24,52 @@ class EnvironmentIntegSpec extends Specification {
 
     void 'test saving a single record to the database'() {
 		given: 'I save the environment to the database'
-			env.save(failOnError : true)
+			env1.save(failOnError : true)
 	
 		expect: 'to find an entry in the database with the same properties'
-			env.id != null
-			Environment.get(env.id).name == 'webapp-sit'
-			Environment.get(env.id).description == 'This is an environment'
-			Environment.get(env.id).system == 'Some System'
-			Environment.get(env.id).url == 'http://localhost:7001'
-			Environment.get(env.id).phaseUsage == 'SIT'
-			Environment.get(env.id).vendor == 'myCompany'
-			Environment.get(env.id).status == 'Active'
+			env1.id != null
+			Environment.get(env1.id).name == 'webapp-sit'
+			Environment.get(env1.id).description == 'This is an environment'
+			Environment.get(env1.id).system == 'Some System'
+			Environment.get(env1.id).url == 'http://localhost:7001'
+			Environment.get(env1.id).phaseUsage == 'SIT'
+			Environment.get(env1.id).vendor == 'myCompany'
+			Environment.get(env1.id).status == 'Active'
     }
 	
 	void 'test saving and updating a record'() {
 		given: 'I save the environment to the database'
-			env.save(failOnError : true)
-			env.id != null
+			env1.save(failOnError : true)
+			env1.id != null
 			
 		when: 'I edit the environment name'
-			def foundEnv = Environment.get(env.id)
+			def foundEnv = Environment.get(env1.id)
 			foundEnv.name = 'Changed name'
 			foundEnv.save(failOnError:true)
 		
 		then: 'expect an entry in the database with the same name'
-			Environment.get(env.id).name == 'Changed name'
+			Environment.get(env1.id).name == 'Changed name'
 	}
 	
 	void 'test saving and deleting a record'() {
 		given: 'I save the environment to the database'
-			env.save(failOnError : true)
-			env.id != null
+			env1.save(failOnError : true)
+			env1.id != null
 			
 		when: 'I delete the environment'
-			def foundEnv = Environment.get(env.id)
+			def foundEnv = Environment.get(env1.id)
 			foundEnv.delete()
 		
 		then: 'expect an entry in the database with the same ID'
-			!env.exists(foundEnv.id)
+			!env1.exists(foundEnv.id)
 	}
 	
 	void 'test having an invalid releaseId'(){
 		when: 'A environment is created with an invalid name'
 			def badEnv = new Environment(name : '',
-								description : 'This is an environment',
-								system : 'Some System',
-								integratedWith : 'a different environment',
-								url : 'http://localhost:7001',
-								phaseUsage : 'SIT',
-								vendor : 'myCompany',
-								status : 'Active')
+											description : 'This is an environment',
+											phaseUsage : 'SIT',
+											status : 'Active')
 			
 		then: 'the test should fail validation and have errors because cannot be blank'
 			badEnv.validate() == false
@@ -85,13 +81,12 @@ class EnvironmentIntegSpec extends Specification {
 	void 'test invalid save is corrected'(){
 		given:
 			def badEnv = new Environment(name: '',
-								description : 'This is an environment',
-								system : 'Some System',
-								integratedWith : 'a different environment',
-								url : 'http://localhost:7001',
-								phaseUsage : 'SIT',
-								vendor : 'myCompany',
-								status : 'Active')
+											description : 'This is an environment',
+											system : 'Some System',
+											url : 'http://localhost:7001',
+											phaseUsage : 'SIT',
+											vendor : 'myCompany',
+											status : 'Active')
 			
 		when:
 			badEnv.validate() == false
@@ -103,5 +98,28 @@ class EnvironmentIntegSpec extends Specification {
 			badEnv.validate() == true
 			badEnv.hasErrors() == false
 			badEnv.save()
+	}
+	
+	void 'test environment has many integrations'(){
+		given: 'I have 3 environments'		
+			env1.save( failOnError : true )			
+			env2 = new Environment(name: 'env2',
+											description : 'This is environment 2',
+											phaseUsage : 'DEV',
+											status : 'Active')													
+			env3 = new Environment(name: 'env3',
+											description : 'This is environment 3',
+											phaseUsage : 'UAT',
+											status : 'Active')
+			
+		when: 'I integrate them'
+			env2.save( failOnError : true )
+			env3.save( failOnError : true )
+			env1.addToIntegrations( env2 )
+			env1.addToIntegrations( env3 )
+			env2.addToIntegrations( env3 )
+			
+		then: 'all environments should have the correct number of integrations'
+			env1.integrations.size() == 2
 	}
 }

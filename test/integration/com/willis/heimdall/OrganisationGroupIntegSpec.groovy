@@ -6,7 +6,7 @@ import spock.lang.*
  * Integration tests for the organisation unit model
  * @author Sion Williams
  */
-class OrganisationUnitIntegSpec extends Specification {
+class OrganisationGroupIntegSpec extends Specification {
 	def orgUnit
 
     def setup() {

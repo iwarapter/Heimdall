@@ -51,10 +51,6 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 		
-		// functional testing with Geb
-		test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
-		test("org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion")
-		test "org.gebish:geb-spock:$gebVersion"
     }
 
     plugins {
@@ -71,8 +67,8 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.11.0.2"
         runtime ":resources:1.2.7"
 		
-		// functional testing
-		test ":geb:$gebVersion"
+		// cobertura coverage
+		test ":code-coverage:1.2.7"
 		
     }
 }

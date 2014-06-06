@@ -27,7 +27,7 @@ class EnvironmentIntegSpec extends Specification {
 			env1.save(failOnError : true)
 	
 		expect: 'to find an entry in the database with the same properties'
-			env1.id != null
+			env1.id
 			Environment.get(env1.id).name == 'webapp-sit'
 			Environment.get(env1.id).description == 'This is an environment'
 			Environment.get(env1.id).system == 'Some System'
@@ -40,7 +40,7 @@ class EnvironmentIntegSpec extends Specification {
 	void 'test saving and updating a record'() {
 		given: 'I save the environment to the database'
 			env1.save(failOnError : true)
-			env1.id != null
+			env1.id
 			
 		when: 'I edit the environment name'
 			def foundEnv = Environment.get(env1.id)
@@ -54,7 +54,7 @@ class EnvironmentIntegSpec extends Specification {
 	void 'test saving and deleting a record'() {
 		given: 'I save the environment to the database'
 			env1.save(failOnError : true)
-			env1.id != null
+			env1.id
 			
 		when: 'I delete the environment'
 			def foundEnv = Environment.get(env1.id)

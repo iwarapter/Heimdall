@@ -6,7 +6,7 @@ jdk:
   - openjdk6
 
 script: ./grailsw refresh-dependencies
-     && ./grailsw test-app integration
+     && ./grailsw test-app
 
 before_install:
  - chmod +x grailsw

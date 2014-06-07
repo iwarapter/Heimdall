@@ -15,6 +15,7 @@ class Booking {
 		name( blank: false )
 		startDate( blank: false, min: new Date() )
 		endDate( blank: false, min: new Date() )
+		user( nullable : true )
     }
 	
 	// TODO : is sorting required?

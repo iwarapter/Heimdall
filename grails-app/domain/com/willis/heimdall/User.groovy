@@ -12,6 +12,7 @@ class User {
 	String status
 	
 	static belongsTo = [ system : System, orgUnit : OrganisationGroup]
+	static hasMany = [ bookings : Booking ]
 	
     static constraints = {
 		firstName( blank : false, nullable : false )
@@ -21,5 +22,6 @@ class User {
 		status( inList : ['Pending', 'Active'] )
 		system( blank : true, nullable: true )
 		orgUnit( blank : true, nullable: true )
+		bookings( nullable : true )
     }	
 }

@@ -7,10 +7,10 @@ import spock.lang.*
  * @author Sion Williams
  */
 class UserIntegSpec extends Specification {
-	def user
+	def user1
 
     def setup() {
-		user = new User( firstName: 'Sion',
+		user1 = new User( firstName: 'Sion',
 						lastName: 'Williams',
 						email: 'my@email.co.uk',
 						role: 'Admin',
@@ -22,42 +22,42 @@ class UserIntegSpec extends Specification {
 
     void 'test saving a single record to the database'() {
 		given: 'I save the user to the database'
-			user.save(failOnError:true)
+			user1.save(failOnError:true)
 	
 		expect: 'to find an entry in the database with the same properties'
-			user.id
-			user.get(user.id).firstName == 'Sion'
-			user.get(user.id).lastName == 'Williams'
-			user.get(user.id).email == 'my@email.co.uk'
-			user.get(user.id).role == 'Admin'
-			user.get(user.id).status == 'Active'
+			user1.id
+			User.get(user1.id).firstName == 'Sion'
+			User.get(user1.id).lastName == 'Williams'
+			User.get(user1.id).email == 'my@email.co.uk'
+			User.get(user1.id).role == 'Admin'
+			User.get(user1.id).status == 'Active'
     }
 	
 	void 'test saving and updating a record'() {
 		given: 'I save the user to the database'
-			user.save(failOnError:true)
-			!user.id
+			user1.save(failOnError:true)
+			!user1.id
 			
 		when: 'I edit the user name'
-			def foundUser = User.get(user.id)
-			user.firstName = 'Notsion'
+			def foundUser = User.get(user1.id)
+			user1.firstName = 'Notsion'
 			foundUser.save(failOnError:true)			
 		
 		then: 'expect an entry in the database with the same ID'
-			User.get(user.id).firstName == 'Notsion'
+			User.get(user1.id).firstName == 'Notsion'
 	}
 	
 	void 'test saving and deleting a record'() {
 		given: 'I save the user to the database'
-			user.save(failOnError:true)
-			!user.id
+			user1.save(failOnError:true)
+			!user1.id
 			
 		when: 'I delete the user'
-			def foundUser = User.get(user.id)
+			def foundUser = User.get(user1.id)
 			foundUser.delete()			
 		
 		then: 'expect an entry in the database with the same ID'
-			!user.exists(foundUser.id)
+			!user1.exists(foundUser.id)
 	}
 	
 	void 'test having an invalid email'(){
@@ -104,21 +104,21 @@ class UserIntegSpec extends Specification {
 							status : 'Active',
 							organisationUnit : 'My group' ).save()
 							
-			def user1 = new User( firstName: 'Sion',
+			def user2 = new User( firstName: 'Sion',
 							lastName: 'Williams',
 							email: 'my@email.co.uk',
 							role: 'Admin',
 							status: 'Active' )		
 		
 		and: 'shouldnt validate, shouldnt have an id'
-			!user1.validate()
-			!user1.id
-			user1.system = sys1
+			!user2.validate()
+			!user2.id
+			user2.system = sys1
 			
 		expect: 'its user: should validate and save'
-			user1.validate()
-			user1.save()
-			user1.id
+			user2.validate()
+			user2.save()
+			user2.id
 			
 	}
 	
@@ -132,20 +132,20 @@ class UserIntegSpec extends Specification {
 								status : 'Active',
 								organisationUnit : 'My group' )
 								
-			def user1 = new User( firstName: 'Sion',
+			def user2 = new User( firstName: 'Sion',
 						lastName: 'Williams',
 						email: 'my@email.co.uk',
 						role: 'Admin',
 						status: 'Active' )
 			
-			sys1.addToUsers( user1 )
+			sys1.addToUsers( user2 )
 			
 		and: 'Saving a system should also save its users'
 			!sys1.id
-			!user1.id
+			!user2.id
 			sys1.save()
 			sys1.id
-			user1.id
+			user2.id
 			
 		expect: 'Deleting an album should delete its songs'
 			sys1.delete()
@@ -156,21 +156,21 @@ class UserIntegSpec extends Specification {
 		given: ' a new group and user'
 			def org1 = new OrganisationGroup( name : 'My Group' ).save()
 							
-			def user1 = new User( firstName: 'Sion',
+			def user2 = new User( firstName: 'Sion',
 							lastName: 'Williams',
 							email: 'my@email.co.uk',
 							role: 'Admin',
 							status: 'Active' )
 		
 		and: 'shouldnt validate, shouldnt have an id'
-			!user1.validate()
-			!user1.id
-			user1.orgUnit = org1
+			!user2.validate()
+			!user2.id
+			user2.orgUnit = org1
 			
 		expect: 'its user: should validate and save'
-			user1.validate()
-			user1.save()
-			user1.id
+			user2.validate()
+			user2.save()
+			user2.id
 			
 	}
 	
@@ -180,23 +180,43 @@ class UserIntegSpec extends Specification {
 			
 			def org1 = new OrganisationGroup( name : 'My Group' )
 								
-			def user1 = new User( firstName: 'Sion',
+			def user2 = new User( firstName: 'Sion',
 						lastName: 'Williams',
 						email: 'my@email.co.uk',
 						role: 'Admin',
 						status: 'Active' )
 			
-			org1.addToMembers( user1 )
+			org1.addToMembers( user2 )
 			
 		and: 'Saving a system should also save its users'
 			!org1.id
-			!user1.id
+			!user2.id
 			org1.save()
 			org1.id
-			user1.id
+			user2.id
 			
 		expect: 'Deleting an album should delete its songs'
 			org1.delete()
 			User.list().size() == originalUserCount
+	}
+	
+	void 'test Users creating bookings'(){
+		given:
+			user1.save()
+			def today = new Date()
+			def todayPlusWeek = today + 30
+			def booking1 = new Booking(name : 'Booking1',
+										startDate : today,
+										endDate : todayPlusWeek)
+			def booking2 = new Booking(name : 'Booking2',
+										startDate : today + 1,
+										endDate : todayPlusWeek)
+		
+		when:
+			user1.addToBookings( booking1 )
+			user1.addToBookings( booking2 )
+			
+		then:
+			User.get(user1.id).bookings.size() == 2
 	}
 }

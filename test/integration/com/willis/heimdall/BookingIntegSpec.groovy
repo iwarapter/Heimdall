@@ -15,9 +15,6 @@ class BookingIntegSpec extends Specification {
 		booking1 = new Booking(name : 'Booking1',
 								startDate : today,
 								endDate : todayPlusWeek)
-		booking2 = new Booking(name : 'Booking2',
-								startDate : today + 1,
-								endDate : todayPlusWeek)
     }
 
     void 'test saving the booking to the db'() {
@@ -30,20 +27,4 @@ class BookingIntegSpec extends Specification {
 			Booking.get( booking1.id ).startDate == today
 			Booking.get( booking1.id ).endDate == todayPlusWeek
     }
-	
-	void 'test Users creating bookings'(){
-		given:
-			def user = new User( firstName: 'Sion',
-						lastName: 'Williams',
-						email: 'my@email.co.uk',
-						role: 'Admin',
-						status: 'Active' ).save()
-		
-		when:
-			user.addToBookings( booking1 )
-			user.addToBookings( booking2 )
-			
-		then:
-			User.get(user.id).bookings.size() == 2
-	}
 }

@@ -122,4 +122,24 @@ class EnvironmentIntegSpec extends Specification {
 		then: 'all environments should have the correct number of integrations'
 			env1.integrations.size() == 2
 	}
+	
+	void 'test Environment bookings'(){
+		given:
+			env1.save()
+			def today = new Date()
+			def todayPlusWeek = today + 30			
+			def booking1 = new Booking(name : 'Booking1',
+										startDate : today,
+										endDate : todayPlusWeek)
+			def booking2 = new Booking(name : 'Booking2',
+										startDate : today + 1,
+										endDate : todayPlusWeek)
+		
+		when:
+			env1.addToBookings( booking1 )
+			env1.addToBookings( booking2 )
+			
+		then:
+			Environment.get(env1.id).bookings.size() == 2
+	}
 }

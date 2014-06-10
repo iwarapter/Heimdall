@@ -13,8 +13,7 @@ class Environment {
 	String vendor
 	String status
 	
-	static hasMany = [ integrations : Environment]
-						//,bookings : Booking ]
+	static hasMany = [ integrations : Environment, bookings : Booking ]
 
     static constraints = {
 		name( blank : false, unique : true )
@@ -25,6 +24,6 @@ class Environment {
 		phaseUsage( inList : ['DEV', 'SIT', 'UAT', 'PSUP', 'PROD'] )
 		vendor( nullable : true )
 		status( inList : ['Under Build/Config', 'Decommissioned', 'Active'] )
-		//bookings( nullable : true )
+		bookings( nullable : true )
     }
 }

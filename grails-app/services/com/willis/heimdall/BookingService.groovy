@@ -13,6 +13,6 @@ class BookingService {
 				dates.add( it )
 			}
 		}
-        dates // return
+        dates
     }
 }

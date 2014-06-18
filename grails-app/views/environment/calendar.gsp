@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>
-			Calendar for
+			Calendar for ${environment.name}
 		</title>
 		<meta name="layout" content="main"/>
 		<link rel='stylesheet' href="${resource(dir: 'css', file: 'fullcalendar.css')}"/>
@@ -11,18 +11,19 @@
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
-	
-			    // page is now ready, initialize the calendar...	
 			    $('#calendar').fullCalendar({
-			        // put your options and callbacks here
-			        // weekends: false // will hide Saturdays and Sundays
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    }
 			    })	
 			});
 		</script>
 		
 	</head>
 	<body>
-		<h1>Calendar for</h1>
+		<h1>Calendar for ${environment.name}</h1>
 		
 		<div id='calendar'></div>
 	</body>

@@ -23,5 +23,9 @@ class User {
 		system( blank : true, nullable: true )
 		orgUnit( blank : true, nullable: true )
 		bookings( nullable : true )
-    }	
+    }
+
+    String toString(){
+        name
+    }
 }

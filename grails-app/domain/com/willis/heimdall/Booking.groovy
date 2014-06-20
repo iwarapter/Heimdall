@@ -24,4 +24,8 @@ class Booking {
 		sort startDate : 'desc'
 	}
 	*/
+
+    String toString(){
+        name
+    }
 }

@@ -1,5 +1,6 @@
 /**
- * Created by Sion on 18/06/2014.
+ * Calendar Javascript
+ * @author Sion Williams
  */
 
 $(document).ready(function() {
@@ -9,6 +10,7 @@ $(document).ready(function() {
 
 function renderCalendar() {
     $("#calendar").fullCalendar({
+        events: 'bookingList.json',
         header: {
             left: 'prev,next today',
             center: 'title',

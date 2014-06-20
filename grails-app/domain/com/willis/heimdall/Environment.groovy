@@ -26,4 +26,8 @@ class Environment {
 		status( inList : ['Under Build/Config', 'Decommissioned', 'Active'] )
 		bookings( nullable : true )
     }
+
+    String toString(){
+        name
+    }
 }

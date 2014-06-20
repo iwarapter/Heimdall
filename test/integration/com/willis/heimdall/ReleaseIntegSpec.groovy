@@ -27,6 +27,7 @@ class ReleaseIntegSpec extends Specification {
     }
 
     def cleanup() {
+
     }
 
     void 'test saving a single record to the database'() {

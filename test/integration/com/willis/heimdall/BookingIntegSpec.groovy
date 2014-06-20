@@ -17,6 +17,10 @@ class BookingIntegSpec extends Specification {
 								endDate : todayPlusWeek)
     }
 
+    void cleanup() {
+
+    }
+
     void 'test saving the booking to the db'() {
 		given: 'I save the booking'
 			booking1.save( failOnError : true )

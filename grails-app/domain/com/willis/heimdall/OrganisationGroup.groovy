@@ -8,5 +8,8 @@ class OrganisationGroup {
     static constraints = {
 		name( blank : false, nullable : false )
     }
-	
+
+    String toString(){
+        name
+    }
 }

@@ -23,4 +23,8 @@ class System {
 		status( inList : ['Active', 'Inactive'] )
 		organisationUnit( nullable : true )
     }
+
+    String toString(){
+        name
+    }
 }

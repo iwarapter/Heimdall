@@ -24,4 +24,8 @@ class Release {
 		releaseDate( min : new Date() )
 		implementationDate( min : new Date() )
     }
+
+    String toString(){
+        name
+    }
 }

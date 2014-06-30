@@ -1,18 +1,21 @@
 package com.willis.heimdall
 
-
-
-import grails.test.mixin.*
-import spock.lang.*
+import grails.test.mixin.Mock
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 
 @TestFor(BookingController)
 @Mock(Booking)
 class BookingControllerSpec extends Specification {
 
+    def today = new Date()
+    def todayPlusWeek = today + 30
+
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        name : 'Booking1'
+        startDate : today
+        endDate : todayPlusWeek
     }
 
     void "Test the index action returns the correct model"() {

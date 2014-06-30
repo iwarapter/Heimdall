@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat
  */
 @Transactional(readOnly = true)
 class EnvironmentController {
+    def environmentService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -100,39 +101,21 @@ class EnvironmentController {
     }
 
     def calendar = {
-        def environment = Environment.findById(params.id)
+        def environment = Environment.findById( params.id )
         [ environment : environment ]
     }
 
     def bookingList = {
-        def environment = Environment.findById(params.id)
-        def eventList = []
-        def displayDateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        def environment = Environment.findById( params.id )
 
-        /*
-         * For each of the bookings that belong to the environment
-         * convert their dates and add them to the event list.
-         */
-        environment.bookings.each { booking ->
-
-            DateTime startDate = new DateTime(booking.startDate)
-            DateTime endDate = new DateTime(booking.endDate)
-
-            eventList << [
-                    id: booking.id,
-                    title: booking.name,
-                    allDay: true,
-                    start: displayDateFormatter.format(startDate.toDate()),
-                    end: displayDateFormatter.format(endDate.toDate())
-            ]
-        }
+        def bookingList = environmentService.returnBookingList( environment )
 
         withFormat {
             html {
-                [eventInstanceList: eventList]
+                [eventInstanceList: bookingList]
             }
             json {
-                render eventList as JSON
+                render bookingList as JSON
             }
         }
     }

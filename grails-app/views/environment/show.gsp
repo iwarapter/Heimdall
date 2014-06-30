@@ -17,8 +17,8 @@
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
         <li><g:link class="create" action="create"><g:message code="default.new.label"
                                                               args="[entityName]"/></g:link></li>
-        <li><g:link class="calendar" action="calendar" resource="${environmentInstance}"><g:message
-                code="v" default="Calendar"/></g:link></li>
+        <li><g:link class="calendar" action="calendar" resource="${environmentInstance}">
+            <g:message code="default.button.calendar.label" default="Calendar" args="[entityName]"/></g:link></li>
     </ul>
 </div>
 

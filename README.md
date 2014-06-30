@@ -1,6 +1,6 @@
 # Heimdall - Environment and Release Management
 
-![Heimdall](./web-app/images/Heimdall_gatekeeper.png)
+![Heimdall](./grails-app/assets/images/Heimdall_gatekeeper.png)
 
 
 He is the all-seeing and all-hearing guardian sentry of Asgard, he stands on the rainbow bridge, Bifrost and stands 

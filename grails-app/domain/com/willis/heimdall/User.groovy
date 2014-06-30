@@ -24,8 +24,4 @@ class User {
 		orgUnit( blank : true, nullable: true )
 		bookings( nullable : true )
     }
-
-    String toString(){
-        name
-    }
 }

@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
  */
 @Transactional(readOnly = true)
 class EnvironmentController {
-    def environmentService
+    def bookingService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -107,17 +107,8 @@ class EnvironmentController {
 
     def bookingList = {
         def environment = Environment.findById( params.id )
-
-        def bookingList = environmentService.returnBookingList( environment )
-
-        withFormat {
-            html {
-                [eventInstanceList: bookingList]
-            }
-            json {
-                render bookingList as JSON
-            }
-        }
+        def bookingList = bookingService.listBookingsJSON( environment )
+        bookingList
     }
 
     protected void notFound() {

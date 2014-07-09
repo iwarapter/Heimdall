@@ -30,7 +30,7 @@ class BookingService {
     /*
      *  Return a list of Bookings that relate to the Environment in JSON format
      *
-     * @param bookingList A list of Bookings that relate to the Environment
+     * @param bookingListJson
      */
     def listBookingsJSON(Environment environment) {
         def bookingList = []
@@ -44,8 +44,8 @@ class BookingService {
                     end  : booking.endDate
             ]
         }
-        // TODO: For the calendar to work correctly the JSON needs to have event objects
-        bookingList as JSON
+        def bookingListJson = new JsonBuilder(bookingList)
+        bookingListJson
     }
 
     def findOccurrencesInRange(Booking booking, Date rangeStart, Date rangeEnd) {

@@ -102,7 +102,12 @@ class EnvironmentController {
 
     def calendar = {
         def environment = Environment.findById( params.id )
-        [ environment : environment ]
+
+        if( !environment ){
+            response.sendError(404)
+        } else {
+            [ environment : environment ]
+        }
     }
 
     def bookingList = {

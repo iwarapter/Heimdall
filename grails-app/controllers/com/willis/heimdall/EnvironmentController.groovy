@@ -112,8 +112,13 @@ class EnvironmentController {
 
     def bookingList = {
         def environment = Environment.findById( params.id )
-        def bookingList = bookingService.listBookingsJSON( environment )
-        bookingList
+
+        if( !environment ){
+            response.sendError(404)
+        } else {
+            def bookingList = bookingService.listBookingsJSON( environment )
+            render bookingList
+        }
     }
 
     protected void notFound() {

@@ -11,35 +11,35 @@ import spock.lang.Specification
 @Mock([Environment, Booking])
 class EnvironmentControllerSpec extends Specification {
     Date today, todayPlusWeek
+    Environment env1
+    Booking booking1, booking2
 
     def setup() {
         today = new Date()
         todayPlusWeek = today + 30
+        env1 = new Environment(name : 'webapp-sit',
+                description : 'This is an environment',
+                system : 'Some System',
+                url : 'http://localhost:7001',
+                phaseUsage : 'SIT',
+                vendor : 'myCompany',
+                status : 'Active')
+        booking1 = new Booking(name : 'Booking1',
+                startDate : today,
+                endDate : todayPlusWeek)
+        booking2 = new Booking(name : 'Booking2',
+                startDate : today + 1,
+                endDate : todayPlusWeek)
+        env1.addToBookings( booking1 )
+        env1.addToBookings( booking2 )
+        env1.save(failOnError: true)
     }
 
     def cleanup() {
     }
 
     def "Get a environment calendar given their id"() {
-        given: "A environment with bookings in the db"
-            Environment env1 = new Environment(name : 'webapp-sit',
-                    description : 'This is an environment',
-                    system : 'Some System',
-                    url : 'http://localhost:7001',
-                    phaseUsage : 'SIT',
-                    vendor : 'myCompany',
-                    status : 'Active')
-            Booking booking1 = new Booking(name : 'Booking1',
-                    startDate : today,
-                    endDate : todayPlusWeek)
-            Booking booking2 = new Booking(name : 'Booking2',
-                    startDate : today + 1,
-                    endDate : todayPlusWeek)
-            env1.addToBookings( booking1 )
-            env1.addToBookings( booking2 )
-            env1.save(failOnError: true)
-
-        and: "A id parameter"
+        given: "A id parameter"
             params.id = env1.id
 
         when: "the calendar is invoked"
@@ -60,4 +60,21 @@ class EnvironmentControllerSpec extends Specification {
         then: "a 404 is sent to the browser"
             response.status == 404
     }
+
+    /*
+    // TODO : Fix this unit test mofo!
+    def "test the booking list action"() {
+        given: "A id parameter"
+            def mockBookingService = Mock( BookingService )
+            1 * mockBookingService.listBookingsJSON( env1 ) >> new String( 'some JSON fake' )
+            params.id = env1.id
+
+
+        when: "the calendar is invoked"
+            def result = controller.bookingList()
+
+        then: "the environment is in the returned model"
+            result == 'some JSON fake'
+    }*/
+
 }

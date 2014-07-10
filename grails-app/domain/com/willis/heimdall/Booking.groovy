@@ -17,13 +17,6 @@ class Booking {
 		endDate( blank: false, min: new Date() )
 		user( nullable : true )
     }
-	
-	// TODO : is sorting required?
-	/*
-	static mapping = {
-		sort startDate : 'desc'
-	}
-	*/
 
     String toString(){
         name

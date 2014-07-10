@@ -7,13 +7,12 @@ $(document).ready(function() {
     renderCalendar();
 });
 
+var result = ${remoteFunction(controller: 'environment', action: 'bookingList',
+                                  update: 'none',
+                                   params:'\'id=\'+id+\')}
 function renderCalendar() {
     $("#calendar").fullCalendar({
-        events: function () {
-            var url = "/Heimdall/environment/bookingList/";
-            var envId = "${environment.id}";
-            $.get(url, { id: envId })
-        },
+        events: result,
         header: {
             left: 'prev,next today',
             center: 'title',

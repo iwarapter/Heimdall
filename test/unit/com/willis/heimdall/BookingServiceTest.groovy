@@ -1,5 +1,6 @@
 package com.willis.heimdall
 
+import grails.converters.deep.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import groovy.json.JsonOutput
@@ -9,7 +10,7 @@ import spock.lang.Specification
 
 @TestFor(BookingService)
 @Mock([Booking, Environment])
-class BookingServiceTest extends Specification {
+class BookingServiceSpec extends Specification {
     Date today, todayPlusWeek
     Environment env1
     Booking booking1, booking2
@@ -45,15 +46,15 @@ class BookingServiceTest extends Specification {
             bookingList.size() == 2
     }
 
-    /*
+
     def "ListBookingsJSON"() {
         when:
             env1.id != null
-            def bookingList = service.listBookingsJSON( env1 )
-            def bookingListJson = new JsonSlurper().parse(bookingList)
+            def bookingList = service.listBookingsJSON(env1)
 
         then:
-            bookingListJson[0].title == "Booking1"
-            bookingListJson[1].title == "Booking2"
-    }*/
+            println JsonOutput.prettyPrint( JsonOutput.toJson( bookingList ))
+            bookingList.content.title[0] == "Booking1"
+            bookingList.content.title[1] == "Booking2"
+    }
 }

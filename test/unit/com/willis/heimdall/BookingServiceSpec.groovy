@@ -1,11 +1,8 @@
 package com.willis.heimdall
 
-import grails.converters.deep.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import groovy.json.JsonOutput
-import groovy.json.JsonSlurper
-import org.codehaus.groovy.grails.web.json.JSONObject
 import spock.lang.Specification
 
 @TestFor(BookingService)

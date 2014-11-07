@@ -1,12 +1,8 @@
 package com.willis.heimdall
 
-import grails.converters.JSON
-import org.joda.time.DateTime
-
-import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-import java.text.SimpleDateFormat
+import static org.springframework.http.HttpStatus.*
 
 /**
  * Environment Controller
@@ -101,23 +97,31 @@ class EnvironmentController {
     }
 
     def calendar = {
-        def environment = Environment.findById( params.id )
+        try {
+            def environment = Environment.findById(params.id)
 
-        if( !environment ){
-            response.sendError(404)
-        } else {
-            [ environment : environment ]
+            if (!environment) {
+                response.sendError(404)
+            } else {
+                [environment: environment]
+            }
+        } catch (Exception e) {
+            log.error("Error during call to Environment:calendar action: ", e)
         }
     }
 
     def bookingList = {
-        def environment = Environment.findById( params.id )
+        try {
+            def environment = Environment.findById(params.id)
 
-        if( !environment ){
-            response.sendError(404)
-        } else {
-            def bookingList = bookingService.listBookingsJSON( environment )
-            render bookingList
+            if (!environment) {
+                response.sendError(404)
+            } else {
+                def bookingList = bookingService.listBookingsJSON(environment)
+                render bookingList
+            }
+        } catch (Exception e) {
+            log.error("Error during call to Environment:calendar action: ", e)
         }
     }
 

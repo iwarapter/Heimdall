@@ -2,7 +2,6 @@ package com.willis.heimdall
 
 import grails.transaction.Transactional
 import groovy.json.JsonBuilder
-import grails.converters.JSON
 
 @Transactional
 class BookingService {
@@ -12,16 +11,17 @@ class BookingService {
      *
      * @param bookingList
      */
+
     def listBookings(Environment environment) {
         def bookingList = []
 
         environment.bookings.each { booking ->
             bookingList << [
-                    id: booking.id,
+                    id   : booking.id,
                     title: booking.name,
                     allDay: true,
                     start: booking.startDate,
-                    end: booking.endDate
+                    end  : booking.endDate
             ]
         }
         bookingList
@@ -32,6 +32,7 @@ class BookingService {
      *
      * @param bookingListJson
      */
+
     def listBookingsJSON(Environment environment) {
         def bookingList = []
 
@@ -52,8 +53,8 @@ class BookingService {
         def dates = []
 
         booking.startDate.upto(booking.endDate) {
-            if( it >= rangeStart || it <= rangeEnd ) {
-                dates.add( it )
+            if (it >= rangeStart || it <= rangeEnd) {
+                dates.add(it)
             }
         }
         dates

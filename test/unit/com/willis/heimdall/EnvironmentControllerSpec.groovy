@@ -48,18 +48,17 @@ class EnvironmentControllerSpec extends Specification {
             model.environment.bookings.size() == 2
     }
 
-    /*
-    // TODO : Fix this unit test mofo!
     def "Check that non-existent environment are handled with an error"() {
         given: "the id of a non-existent environment"
-            params.id = "this-environment-id-does-not-exist"
+        def mockEnv = Mock(Environment)
+        params.id = mockEnv.id
 
         when: "the calendar is invoked"
             controller.calendar()
 
         then: "a 404 is sent to the browser"
             response.status == 404
-    }*/
+    }
 
     /*
     // TODO : Fix this unit test mofo!

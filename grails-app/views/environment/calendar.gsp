@@ -12,6 +12,9 @@
     </head>
 	<body>
 		<h1>Calendar for ${environment.name}</h1>
+		<g:javascript>
+			var envId = ${params.id}
+		</g:javascript>
 		
 		<div id='calendar'></div>
 	</body>

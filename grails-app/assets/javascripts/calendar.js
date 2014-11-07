@@ -7,12 +7,10 @@ $(document).ready(function() {
     renderCalendar();
 });
 
-var result = ${remoteFunction(controller: 'environment', action: 'bookingList',
-                                  update: 'none',
-                                   params:'\'id=\'+id+\')}
+
 function renderCalendar() {
     $("#calendar").fullCalendar({
-        events: result,
+        events: '../bookingList/' + envId,
         header: {
             left: 'prev,next today',
             center: 'title',

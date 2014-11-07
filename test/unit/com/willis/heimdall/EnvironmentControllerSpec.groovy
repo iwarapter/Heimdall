@@ -60,20 +60,4 @@ class EnvironmentControllerSpec extends Specification {
             response.status == 404
     }
 
-    /*
-    // TODO : Fix this unit test mofo!
-    def "test the booking list action"() {
-        given: "A id parameter"
-            def mockBookingService = Mock( BookingService )
-            1 * mockBookingService.listBookingsJSON( env1 ) >> new String( 'some JSON fake' )
-            params.id = env1.id
-
-
-        when: "the calendar is invoked"
-            def result = controller.bookingList()
-
-        then: "the environment is in the returned model"
-            result == 'some JSON fake'
-    }*/
-
 }

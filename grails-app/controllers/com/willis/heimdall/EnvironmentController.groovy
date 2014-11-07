@@ -106,7 +106,7 @@ class EnvironmentController {
                 [environment: environment]
             }
         } catch (Exception e) {
-            log.error("Error during call to Environment:calendar action: ", e)
+            log.error("Error during call to ${controllerName}/${actionName} action: ", e)
         }
     }
 
@@ -121,7 +121,7 @@ class EnvironmentController {
                 render bookingList
             }
         } catch (Exception e) {
-            log.error("Error during call to Environment:calendar action: ", e)
+            log.error("Error during call to ${controllerName}/${actionName} action: ", e)
         }
     }
 

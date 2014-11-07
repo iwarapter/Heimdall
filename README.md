@@ -23,10 +23,10 @@ have, and knowing how long they will be in use can significantly reduce the amou
 
 ## Use Cases
 
-- [ ] *User* can request a full page *Calendar* for an *Environments Bookings*
+- [x] *User* can request a full page *Calendar* for an *Environments Bookings*
   - [x] Add *Calendar* action to *Environment* controller
-  - [x] Render a full calendar per Enevironment after a call to the controller
-  - [ ] *Calendar* retrieves *Booking* list from *Environment* instance
-- [ ] Only Admin Users can add Environments
+  - [x] Render a full calendar per Environment after a call to the controller
+  - [x] *Calendar* retrieves *Booking* list from *Environment* instance
+- [ ] Only *Admin Users* can add *Environments*
 - [ ] Only *Admin Users* can make other *Admin Users*
 - [ ] Only *Admin Users* can *Create Systems*

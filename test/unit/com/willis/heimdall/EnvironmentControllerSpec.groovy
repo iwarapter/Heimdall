@@ -15,21 +15,21 @@ class EnvironmentControllerSpec extends Specification {
     def setup() {
         today = new Date()
         todayPlusWeek = today + 30
-        env1 = new Environment(name : 'webapp-sit',
-                description : 'This is an environment',
-                system : 'Some System',
-                url : 'http://localhost:7001',
-                phaseUsage : 'SIT',
-                vendor : 'myCompany',
-                status : 'Active')
-        booking1 = new Booking(name : 'Booking1',
-                startDate : today,
-                endDate : todayPlusWeek)
-        booking2 = new Booking(name : 'Booking2',
-                startDate : today + 1,
-                endDate : todayPlusWeek)
-        env1.addToBookings( booking1 )
-        env1.addToBookings( booking2 )
+        env1 = new Environment(name: 'webapp-sit',
+                description: 'This is an environment',
+                system: 'Some System',
+                url: 'http://localhost:7001',
+                phaseUsage: 'SIT',
+                vendor: 'myCompany',
+                status: 'Active')
+        booking1 = new Booking(name: 'Booking1',
+                startDate: today,
+                endDate: todayPlusWeek)
+        booking2 = new Booking(name: 'Booking2',
+                startDate: today + 1,
+                endDate: todayPlusWeek)
+        env1.addToBookings(booking1)
+        env1.addToBookings(booking2)
         env1.save(failOnError: true)
     }
 
@@ -38,14 +38,14 @@ class EnvironmentControllerSpec extends Specification {
 
     def "Get a environment calendar given their id"() {
         given: "A id parameter"
-            params.id = env1.id
+        params.id = env1.id
 
         when: "the calendar is invoked"
-            def model = controller.calendar()
+        def model = controller.calendar()
 
         then: "the environment is in the returned model"
-            model.environment.name == 'webapp-sit'
-            model.environment.bookings.size() == 2
+        model.environment.name == 'webapp-sit'
+        model.environment.bookings.size() == 2
     }
 
     def "Check that non-existent environment are handled with an error"() {
@@ -54,10 +54,10 @@ class EnvironmentControllerSpec extends Specification {
         params.id = mockEnv.id
 
         when: "the calendar is invoked"
-            controller.calendar()
+        controller.calendar()
 
         then: "a 404 is sent to the browser"
-            response.status == 404
+        response.status == 404
     }
 
 }

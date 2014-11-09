@@ -1,6 +1,5 @@
 package com.willis.heimdall
 
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 

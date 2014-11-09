@@ -1,31 +1,59 @@
 package com.willis.heimdall
 
 /**
- * User model
+ * User model - Spring Security Core
  * @author Sion Williams
  */
 class User {
+
+	transient springSecurityService
+
 	String firstName
 	String lastName
 	String email
-	String role
-	String status
-	
-	static belongsTo = [ system : System, orgUnit : OrganisationGroup]
+	String username
+	String password
+	boolean enabled = true
+	boolean accountExpired
+	boolean accountLocked
+	boolean passwordExpired
+
 	static hasMany = [ bookings : Booking ]
-	
-    static constraints = {
+
+	static transients = ['springSecurityService']
+
+	static constraints = {
 		firstName( blank : false, nullable : false )
 		lastName( blank : false, nullable : false )
 		email( email : true, nullable : false )
-		role( inList : ['Admin', 'Manager', 'Requestor'] )	
-		status( inList : ['Pending', 'Active'] )
-		system( blank : true, nullable: true )
-		orgUnit( blank : true, nullable: true )
+		username blank: false, unique: true
+		password blank: false
 		bookings( nullable : true )
-    }
+	}
 
-    String toString(){
-        "${lastName}, ${firstName}"
-    }
+	static mapping = {
+		password column: '`password`'
+	}
+
+	Set<Role> getAuthorities() {
+		UserRole.findAllByUser(this).collect { it.role }
+	}
+
+	def beforeInsert() {
+		encodePassword()
+	}
+
+	def beforeUpdate() {
+		if (isDirty('password')) {
+			encodePassword()
+		}
+	}
+
+	protected void encodePassword() {
+		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+	}
+
+	String toString(){
+		"${lastName}, ${firstName}"
+	}
 }

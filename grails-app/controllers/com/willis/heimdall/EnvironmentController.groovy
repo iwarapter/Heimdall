@@ -1,5 +1,6 @@
 package com.willis.heimdall
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
@@ -23,6 +24,7 @@ class EnvironmentController {
         respond environmentInstance
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         respond new Environment(params)
     }

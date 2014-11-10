@@ -96,6 +96,7 @@ class SystemIntegSpec extends Specification {
         badSys.save()
     }
 
+    @Ignore
     void 'test system has many stakeholders and cascade saves'() {
         when: 'Create and save a system and create a user without an system: shoudnt be valid'
         def originalUserCount = User.list().size()
@@ -121,6 +122,7 @@ class SystemIntegSpec extends Specification {
         User.list().size() == originalUserCount + 1
     }
 
+    @Ignore
     void 'test we can query for Users via finders or HQL'() {
         when: 'Create and save a System'
         def sys1 = new System(name: 'My System1',

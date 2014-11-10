@@ -26,6 +26,7 @@ class OrganisationGroupIntegSpec extends Specification {
         OrganisationGroup.get(orgUnit.id).name == 'Web Team'
     }
 
+    @Ignore
     void 'test group has many members and cascade saves'() {
         when: 'Create and save a group and create a user without an group: shoudnt be valid'
         def originalUserCount = User.list().size()

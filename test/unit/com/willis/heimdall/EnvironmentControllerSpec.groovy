@@ -28,9 +28,9 @@ class EnvironmentControllerSpec extends Specification {
         booking2 = new Booking(name: 'Booking2',
                 startDate: today + 1,
                 endDate: todayPlusWeek)
-        env1.addToBookings(booking1)
-        env1.addToBookings(booking2)
-        env1.save(failOnError: true)
+        env1.addToBookings booking1
+        env1.addToBookings booking2
+        env1.save failOnError: true
     }
 
     def cleanup() {
@@ -58,6 +58,20 @@ class EnvironmentControllerSpec extends Specification {
 
         then: "a 404 is sent to the browser"
         response.status == 404
+    }
+
+    def "Call bookingList service from controller bookingList action"() {
+        setup:
+        def bookingService = Mock(BookingService)
+        controller.bookingService = bookingService
+
+        when:
+        params.id = env1.id
+        controller.bookingList()
+
+        then:
+        response.status != 404
+        1 * bookingService.listBookingsJSON(_)
     }
 
 }

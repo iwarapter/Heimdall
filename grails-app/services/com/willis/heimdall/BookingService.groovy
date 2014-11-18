@@ -7,9 +7,10 @@ import groovy.json.JsonBuilder
 class BookingService {
 
     /*
-     * Return a list of Bookings that relate to the Environment
+     * Return a list of Bookings for a given Environment
      *
-     * @param bookingList
+     * @param environment
+     * @return bookingList
      */
 
     def listBookings(Environment environment) {
@@ -24,13 +25,14 @@ class BookingService {
                     end  : booking.endDate
             ]
         }
-        bookingList
+        return bookingList
     }
 
     /*
-     *  Return a list of Bookings that relate to the Environment in JSON format
+     *  Return a list of Bookings for a given Environment in JSON format
      *
-     * @param bookingListJson
+     * @param environment
+     * @return bookingListJson
      */
 
     def listBookingsJSON(Environment environment) {
@@ -46,7 +48,7 @@ class BookingService {
             ]
         }
         def bookingListJson = new JsonBuilder(bookingList)
-        bookingListJson
+        return bookingListJson
     }
 
     def findOccurrencesInRange(Booking booking, Date rangeStart, Date rangeEnd) {
@@ -57,6 +59,6 @@ class BookingService {
                 dates.add(it)
             }
         }
-        dates
+        return dates
     }
 }

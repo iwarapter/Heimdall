@@ -1,18 +1,23 @@
 package com.willis.heimdall
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['ROLE_ADMIN'])
 @Transactional(readOnly = true)
 class BookingController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Booking.list(params), model: [bookingInstanceCount: Booking.count()]
     }
 
+    @Secured(['ROLE_USER'])
     def show(Booking bookingInstance) {
         respond bookingInstance
     }

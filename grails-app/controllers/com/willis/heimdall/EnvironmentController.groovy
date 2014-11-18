@@ -9,22 +9,24 @@ import static org.springframework.http.HttpStatus.*
  * Environment Controller
  * @author Sion Williams
  */
+@Secured(['ROLE_ADMIN'])
 @Transactional(readOnly = true)
 class EnvironmentController {
     def bookingService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Environment.list(params), model: [environmentInstanceCount: Environment.count()]
     }
 
+    @Secured(['ROLE_USER'])
     def show(Environment environmentInstance) {
         respond environmentInstance
     }
 
-    @Secured(['ROLE_ADMIN'])
     def create() {
         respond new Environment(params)
     }

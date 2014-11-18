@@ -16,13 +16,11 @@ class EnvironmentController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Environment.list(params), model: [environmentInstanceCount: Environment.count()]
     }
 
-    @Secured(['ROLE_USER'])
     def show(Environment environmentInstance) {
         respond environmentInstance
     }

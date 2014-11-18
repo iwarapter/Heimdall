@@ -12,7 +12,6 @@ class BookingService {
      * @param environment
      * @return bookingList
      */
-
     def listBookings(Environment environment) {
         def bookingList = []
 
@@ -34,20 +33,8 @@ class BookingService {
      * @param environment
      * @return bookingListJson
      */
-
     def listBookingsJSON(Environment environment) {
-        def bookingList = []
-
-        environment.bookings.each { booking ->
-            bookingList << [
-                    id   : booking.id,
-                    title: booking.name,
-                    allDay: true,
-                    start: booking.startDate,
-                    end  : booking.endDate
-            ]
-        }
-        def bookingListJson = new JsonBuilder(bookingList)
+        def bookingListJson = new JsonBuilder(listBookings(environment))
         return bookingListJson
     }
 

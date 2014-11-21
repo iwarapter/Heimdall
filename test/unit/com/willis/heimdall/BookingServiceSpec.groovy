@@ -24,11 +24,11 @@ class BookingServiceSpec extends Specification {
                 vendor: 'myCompany',
                 status: 'Active')
         booking1 = new Booking(name: 'Booking1',
-                startDate: today,
-                endDate: todayPlusWeek)
+                startTime: today,
+                endTime: todayPlusWeek)
         booking2 = new Booking(name: 'Booking2',
-                startDate: today + 1,
-                endDate: todayPlusWeek)
+                startTime: today + 1,
+                endTime: todayPlusWeek)
         env1.addToBookings(booking1)
         env1.addToBookings(booking2)
         env1.save(failOnError: true)

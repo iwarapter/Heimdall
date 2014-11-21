@@ -11,7 +11,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: bookingInstance, field: 'startDate', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: bookingInstance, field: 'startTime', 'error')} required">
 	<label for="startDate">
 		<g:message code="booking.startDate.label" default="Start Date" />
 		<span class="required-indicator">*</span>
@@ -20,7 +20,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: bookingInstance, field: 'endDate', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: bookingInstance, field: 'endTime', 'error')} required">
 	<label for="endDate">
 		<g:message code="booking.endDate.label" default="End Date" />
 		<span class="required-indicator">*</span>

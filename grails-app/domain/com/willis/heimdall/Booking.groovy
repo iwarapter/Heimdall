@@ -5,20 +5,22 @@ package com.willis.heimdall
  * @author Sion Williams
  */
 class Booking {
-	String name
-	Date startDate
-	Date endDate
-	
-	static belongsTo = [ user : User ]
+    String name
+    String description
+    Date startTime
+    Date endTime
+
+    static belongsTo = [user: User]
 
     static constraints = {
-		name( blank: false )
-		startDate( blank: false, min: new Date() )
-		endDate( blank: false, min: new Date() )
-		user( nullable : true )
+        name(nullable: false, blank: false)
+        description(nullable: true, blank: true)
+        startTime(required: true, nullable: false)
+        endTime(required: true, validator: { val, obj -> val > obj.startTime })
+        user(nullable: true)
     }
 
-    String toString(){
+    String toString() {
         name
     }
 }

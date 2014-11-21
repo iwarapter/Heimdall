@@ -1,34 +1,34 @@
 package com.willis.heimdall
 
+import grails.test.mixin.TestFor
+import org.joda.time.DateTime
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * Integration tests for the Booking model
  * @author Sion Williams
  */
+@TestFor(Booking)
 class BookingIntegSpec extends Specification {
-    def booking1, booking2
-    def today = new Date()
-    def todayPlusWeek = today + 30
+    @Shared def today = new DateTime()
+    @Shared def todayPlusWeek = today.plusWeeks(1)
 
-    def setup() {
-        booking1 = new Booking(name: 'Booking1',
-                startDate: today,
-                endDate: todayPlusWeek)
-    }
+    def 'test saving a booking to the db'() {
+        given: 'a new booking booking'
+        def booking = new Booking(name: 'my booking',
+                startTime: today.toDate(),
+                endTime: todayPlusWeek.toDate())
 
-    void cleanup() {
+        when: 'the booking is saved'
+        booking.save()
 
-    }
+        then: 'it can be successfully found in the database'
+        booking.errors.errorCount == 0
+        booking.id != null
+        Booking.get(booking.id).name == 'my booking'
+        Booking.get(booking.id).startTime == today.toDate()
+        Booking.get(booking.id).endTime == todayPlusWeek.toDate()
 
-    void 'test saving the booking to the db'() {
-        given: 'I save the booking'
-        booking1.save(failOnError: true)
-
-        expect: 'expect the fields to be populated correctly'
-        booking1.id
-        Booking.get(booking1.id).name == 'Booking1'
-        Booking.get(booking1.id).startDate == today
-        Booking.get(booking1.id).endDate == todayPlusWeek
     }
 }

@@ -26,9 +26,9 @@
 					
 						<g:sortableColumn property="name" title="${message(code: 'booking.name.label', default: 'Name')}" />
 					
-						<g:sortableColumn property="startDate" title="${message(code: 'booking.startDate.label', default: 'Start Date')}" />
+						<g:sortableColumn property="startDate" title="${message(code: 'booking.startTime.label', default: 'Start Date')}" />
 					
-						<g:sortableColumn property="endDate" title="${message(code: 'booking.endDate.label', default: 'End Date')}" />
+						<g:sortableColumn property="endDate" title="${message(code: 'booking.endTime.label', default: 'End Date')}" />
 					
 						<th><g:message code="booking.user.label" default="User" /></th>
 					

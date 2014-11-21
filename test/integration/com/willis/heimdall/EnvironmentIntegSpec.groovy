@@ -130,11 +130,11 @@ class EnvironmentIntegSpec extends Specification {
         def today = new Date()
         def todayPlusWeek = today + 30
         def booking1 = new Booking(name: 'Booking1',
-                startDate: today,
-                endDate: todayPlusWeek)
+                startTime: today,
+                endTime: todayPlusWeek)
         def booking2 = new Booking(name: 'Booking2',
-                startDate: today + 1,
-                endDate: todayPlusWeek)
+                startTime: today + 1,
+                endTime: todayPlusWeek)
 
         when:
         env1.addToBookings(booking1)

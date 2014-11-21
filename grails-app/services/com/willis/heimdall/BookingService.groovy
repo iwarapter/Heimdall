@@ -20,8 +20,8 @@ class BookingService {
                     id   : booking.id,
                     title: booking.name,
                     allDay: true,
-                    start: booking.startDate,
-                    end  : booking.endDate
+                    start: booking.startTime,
+                    end  : booking.endTime
             ]
         }
         return bookingList
@@ -41,7 +41,7 @@ class BookingService {
     def findOccurrencesInRange(Booking booking, Date rangeStart, Date rangeEnd) {
         def dates = []
 
-        booking.startDate.upto(booking.endDate) {
+        booking.startTime.upto(booking.endTime) {
             if (it >= rangeStart || it <= rangeEnd) {
                 dates.add(it)
             }

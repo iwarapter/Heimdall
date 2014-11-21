@@ -12,20 +12,20 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: bookingInstance, field: 'startTime', 'error')} required">
-	<label for="startDate">
-		<g:message code="booking.startDate.label" default="Start Date" />
+	<label for="startTime">
+		<g:message code="booking.startTime.label" default="Start Date"/>
 		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="startDate" precision="day"  value="${bookingInstance?.startDate}"  />
+	<g:datePicker name="startTime" precision="day" value="${bookingInstance?.startTime}"/>
 
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: bookingInstance, field: 'endTime', 'error')} required">
-	<label for="endDate">
-		<g:message code="booking.endDate.label" default="End Date" />
+	<label for="endTime">
+		<g:message code="booking.endTime.label" default="End Date"/>
 		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="endDate" precision="day"  value="${bookingInstance?.endDate}"  />
+	<g:datePicker name="endTime" precision="day" value="${bookingInstance?.endTime}"/>
 
 </div>
 

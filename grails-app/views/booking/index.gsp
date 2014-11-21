@@ -25,10 +25,12 @@
 					<tr>
 					
 						<g:sortableColumn property="name" title="${message(code: 'booking.name.label', default: 'Name')}" />
-					
-						<g:sortableColumn property="startDate" title="${message(code: 'booking.startTime.label', default: 'Start Date')}" />
-					
-						<g:sortableColumn property="endDate" title="${message(code: 'booking.endTime.label', default: 'End Date')}" />
+
+						<g:sortableColumn property="startTime"
+										  title="${message(code: 'booking.startTime.label', default: 'Start Date')}"/>
+
+						<g:sortableColumn property="endTime"
+										  title="${message(code: 'booking.endTime.label', default: 'End Date')}"/>
 					
 						<th><g:message code="booking.user.label" default="User" /></th>
 					
@@ -39,10 +41,10 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${bookingInstance.id}">${fieldValue(bean: bookingInstance, field: "name")}</g:link></td>
-					
-						<td><g:formatDate date="${bookingInstance.startDate}" /></td>
-					
-						<td><g:formatDate date="${bookingInstance.endDate}" /></td>
+
+						<td><g:formatDate date="${bookingInstance.startTime}"/></td>
+
+						<td><g:formatDate date="${bookingInstance.endTime}"/></td>
 					
 						<td>${fieldValue(bean: bookingInstance, field: "user")}</td>
 					

@@ -31,23 +31,25 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${bookingInstance?.startDate}">
-				<li class="fieldcontain">
-					<span id="startDate-label" class="property-label"><g:message code="booking.startDate.label" default="Start Date" /></span>
 
-					<span class="property-value" aria-labelledby="startDate-label"><g:formatDate
-							date="${bookingInstance?.startDate}" type="date"/></span>
+				<g:if test="${bookingInstance?.startTime}">
+				<li class="fieldcontain">
+					<span id="startTime-label" class="property-label"><g:message code="booking.startTime.label"
+																				 default="Start Date"/></span>
+
+					<span class="property-value" aria-labelledby="startTime-label"><g:formatDate
+							date="${bookingInstance?.startTime}" type="date"/></span>
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${bookingInstance?.endDate}">
-				<li class="fieldcontain">
-					<span id="endDate-label" class="property-label"><g:message code="booking.endDate.label" default="End Date" /></span>
 
-					<span class="property-value" aria-labelledby="endDate-label"><g:formatDate
-							date="${bookingInstance?.endDate}" type="date"/></span>
+				<g:if test="${bookingInstance?.endTime}">
+				<li class="fieldcontain">
+					<span id="endTime-label" class="property-label"><g:message code="booking.endTime.label"
+																			   default="End Date"/></span>
+
+					<span class="property-value" aria-labelledby="endTime-label"><g:formatDate
+							date="${bookingInstance?.endTime}" type="date"/></span>
 					
 				</li>
 				</g:if>

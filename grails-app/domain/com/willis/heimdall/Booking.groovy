@@ -10,7 +10,7 @@ class Booking {
     Date startTime
     Date endTime
 
-    static belongsTo = [user: User]
+    static belongsTo = [user: User, environment: Environment]
 
     static constraints = {
         name(nullable: false, blank: false)
@@ -18,6 +18,7 @@ class Booking {
         startTime(required: true, nullable: false)
         endTime(required: true, validator: { val, obj -> val > obj.startTime })
         user(nullable: true)
+        environment(nullable: true)
     }
 
     String toString() {

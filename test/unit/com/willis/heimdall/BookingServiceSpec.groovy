@@ -3,19 +3,24 @@ package com.willis.heimdall
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import groovy.json.JsonOutput
+import org.joda.time.DateTime
+import spock.lang.Shared
 import spock.lang.Specification
 
 @TestFor(BookingService)
 @Mock([Booking, Environment])
 class BookingServiceSpec extends Specification {
+    @Shared
     Date today, todayPlusWeek
+    @Shared
     Environment env1
+    @Shared
     Booking booking1, booking2
 
 
     def setup() {
         today = new Date()
-        todayPlusWeek = today + 30
+        todayPlusWeek = today.plus(30)
         env1 = new Environment(name: 'webapp-sit',
                 description: 'This is an environment',
                 system: 'Some System',
@@ -27,7 +32,7 @@ class BookingServiceSpec extends Specification {
                 startTime: today,
                 endTime: todayPlusWeek)
         booking2 = new Booking(name: 'Booking2',
-                startTime: today + 1,
+                startTime: today.plus(1),
                 endTime: todayPlusWeek)
         env1.addToBookings(booking1)
         env1.addToBookings(booking2)

@@ -1,11 +1,15 @@
 package com.willis.heimdall
 
+import grails.test.mixin.Mock
+import grails.test.mixin.TestFor
 import spock.lang.*
 
 /**
  * Integration tests for the User model
  * @author Sion Williams
  */
+@TestFor(User)
+@Mock(Booking)
 class UserIntegSpec extends Specification {
 
     def setup() {
@@ -63,7 +67,7 @@ class UserIntegSpec extends Specification {
 
         when: 'I delete the user'
         def foundUser = User.get(user3.id)
-        foundUser.delete()
+        foundUser.delete(flush: true)
 
         then: 'expect an entry in the database with the same ID'
         !user3.exists(foundUser.id)
@@ -220,21 +224,19 @@ class UserIntegSpec extends Specification {
                 firstName: 'Sion',
                 lastName: 'Williams',
                 email: 'my@email.co.uk')
-        user6.save()
+        user6.save(failOnError: true)
         def today = new Date()
-        def todayPlusWeek = today + 30
+        def todayPlusWeek = today.plus(30)
         def booking1 = new Booking(name: 'Booking1',
                 startTime: today,
                 endTime: todayPlusWeek)
         def booking2 = new Booking(name: 'Booking2',
-                startTime: today + 1,
+                startTime: today.plus(1),
                 endTime: todayPlusWeek)
-
-        when:
         user6.addToBookings(booking1)
         user6.addToBookings(booking2)
 
-        then:
+        expect:
         User.get(user6.id).bookings.size() == 2
     }
 }

@@ -114,6 +114,8 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    fatal 'org.hibernate.tool.hbm2ddl.SchemaExport'
 }
 
 

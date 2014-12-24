@@ -1,7 +1,7 @@
 /* FONT STACK */
 body,
 input, select, textarea {
-	font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -184,7 +184,7 @@ img {
 	text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create, .nav a.calendar {
+.nav a.home, .nav a.list, .nav a.create {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -200,10 +200,6 @@ img {
 
 .nav a.create {
 	background-image: url(../images/skin/database_add.png);
-}
-
-.nav a.calendar {
-    background-image: url(../images/skin/calendar.png);
 }
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */

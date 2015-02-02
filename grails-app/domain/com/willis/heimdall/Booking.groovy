@@ -9,5 +9,10 @@ class Booking {
 
     static constraints = {
         name blank: false
+        endDate required: true, validator: { val, obj -> val > obj.startDate }
+    }
+
+    String toString() {
+        name
     }
 }
